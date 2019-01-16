@@ -1,0 +1,8 @@
+{
+    "config": {
+        "cache-dir": ".cache"
+    },
+    "require": {
+        "friendsofphp/php-cs-fixer": "^2.14"
+    }
+}
