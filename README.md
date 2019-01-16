@@ -26,3 +26,10 @@ At any given commit you can run `make run` to execute the CLI application or
 
 If you get an error at any point try executing `make install` and then repeat
 the original command, it should fix your problems.
+
+
+# Iterations
+
+## 1st iteration
+
+We go straight to the problem, very procedural approach, it does the job.
