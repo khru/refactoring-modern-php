@@ -2,27 +2,33 @@
 
 define('CSV_PATH', 'data/btc.csv');
 
-// load current price from API
-$json = file_get_contents('https://api.coindesk.com/v1/bpi/currentprice.json');
-$data = json_decode($json);
+function get_price() {
+  $json = file_get_contents('https://api.coindesk.com/v1/bpi/currentprice.json');
+  $data = json_decode($json);
 
-// Process response
-if (JSON_ERROR_NONE !== json_last_error()) {
-  throw new Exception('Bad JSON');
+  // Process response
+  if (JSON_ERROR_NONE !== json_last_error()) {
+    throw new Exception('Bad JSON');
+  }
+
+  return $data->bpi->EUR->rate_float;
 }
 
-$current_price = $data->bpi->EUR->rate_float;
-
-// create CSV line to append to the file
-$line = date ('Y-m-d H:i:s') . ',' . $current_price . "\n";
-
-// Write or append to CSV
-if (!file_exists(CSV_PATH)) {
-  $mode = 0;
-} else {
-  $mode = FILE_APPEND;
+function save_price($price){
+  $line = date ('Y-m-d H:i:s') . ',' . $price . "\n";
+  appent_to_file(CSV_PATH, $line);
 }
 
-file_put_contents(CSV_PATH, $line, $mode);
+function appent_to_file($path, $content) {
+  if (!file_exists(CSV_PATH)) {
+    $mode = 0;
+  } else {
+    $mode = FILE_APPEND;
+  }
+  file_put_contents($path, $content, $mode);
+}
+
+$current_price = get_price();
+save_price($current_price);
 
 echo "Current Bitconin price is: {$current_price}\n";
