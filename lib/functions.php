@@ -1,7 +1,9 @@
 <?php
 
 define('CSV_PATH', 'data/btc.csv');
-
+/**
+ * test pre-commit.
+ */
 function get_price()
 {
     $json = file_get_contents('https://api.coindesk.com/v1/bpi/currentprice.json');
